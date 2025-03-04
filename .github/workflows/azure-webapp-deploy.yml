@@ -21,20 +21,20 @@ jobs:
         run: ls -R
 
       - name: Restore Dependencies
-        run: dotnet restore
-        working-directory: msdocs-app-service-sqldb-dotnetcore
+        run: dotnet restore DotNetCoreSqlDb.csproj
+        working-directory: .
 
       - name: Build Application
         run: dotnet build --configuration Release --no-restore
-        working-directory: msdocs-app-service-sqldb-dotnetcore
+        working-directory: .
 
       - name: Publish Application
         run: dotnet publish --configuration Release --output ./publish --no-build
-        working-directory: msdocs-app-service-sqldb-dotnetcore
+        working-directory: .
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'decordova-web-app'
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: msdocs-app-service-sqldb-dotnetcore/publish
+          package: ./publish
