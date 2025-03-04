@@ -18,19 +18,19 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Debug: List Files
-        run: ls -R  # This will show the file structure for debugging
+        run: ls -R  # Check file structure for debugging
 
       - name: Restore Dependencies
-        working-directory: msdocs-app-service-sqldb-dotnetcore
         run: dotnet restore DotNetCoreSqlDb.csproj
+        working-directory: msdocs-app-service-sqldb-dotnetcore
 
       - name: Build Application
-        working-directory: msdocs-app-service-sqldb-dotnetcore
         run: dotnet build DotNetCoreSqlDb.csproj --configuration Release --no-restore
+        working-directory: msdocs-app-service-sqldb-dotnetcore
 
       - name: Publish Application
-        working-directory: msdocs-app-service-sqldb-dotnetcore
         run: dotnet publish DotNetCoreSqlDb.csproj --configuration Release --output ./publish --no-build
+        working-directory: msdocs-app-service-sqldb-dotnetcore
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
