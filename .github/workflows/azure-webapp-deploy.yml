@@ -17,14 +17,17 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Debug Project Structure
+        run: find . -name "*.csproj"
+
       - name: Restore Dependencies
-        run: dotnet restore DotNetCoreSqlDb/DotNetCoreSqlDb.csproj
+        run: dotnet restore **/*.csproj  # Automatically finds the correct .csproj file
 
       - name: Build Application
-        run: dotnet build DotNetCoreSqlDb/DotNetCoreSqlDb.csproj --configuration Release --no-restore
+        run: dotnet build **/*.csproj --configuration Release --no-restore
 
       - name: Publish Application
-        run: dotnet publish DotNetCoreSqlDb/DotNetCoreSqlDb.csproj --configuration Release --output ./publish --no-build
+        run: dotnet publish **/*.csproj --configuration Release --output ./publish --no-build
 
       - name: Debug Published Files
         run: ls -R ./publish
